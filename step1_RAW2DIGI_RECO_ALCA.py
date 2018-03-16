@@ -8,7 +8,7 @@ import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
 
-process = cms.Process('RECO',eras.Run2_2017)
+process = cms.Process('RECO',eras.Run2_2018)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -79,7 +79,7 @@ process.ALCARECOStreamTkAlCosmics0T = cms.OutputModule("PoolOutputModule",
 # Other statements
 process.ALCARECOEventContent.outputCommands.extend(process.OutALCARECOTkAlCosmics0T_noDrop.outputCommands)
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '90X_dataRun2_Express_v4', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '100X_dataRun2_Express_v3', '')
 
 # Path and EndPath definitions
 process.raw2digi_step = cms.Path(process.RawToDigi)
