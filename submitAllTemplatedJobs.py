@@ -25,21 +25,15 @@ def ConfigSectionMap(config, section):
 ###### method to create recursively directories on EOS #############
 
 def mkdir_eos(out_path):
-    newpath='/'
-    for dir in out_path.split('/'):
-        newpath=os.path.join(newpath,dir)
-        # do not issue mkdir from very top of the tree
-        if newpath.find('test_out') > 0:
-            p = subprocess.Popen(["cmsMkdir",newpath], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            (out, err) = p.communicate()
-            p.wait()
-
-    # now check that the directory exists
-    p = subprocess.Popen(["cmsLs",out_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    (out, err) = p.communicate()
-    p.wait()
-    if p.returncode !=0:
-        print out
+    if not out_path.startswith("/eos/cms"): raise ValueError("out_path "+out_path+" has to start with /eos/cms")
+    """http://stackoverflow.com/a/600612/5228524"""
+    try:
+        os.makedirs(out_path)
+    except OSError as exc:
+        if exc.errno == errno.EEXIST and os.path.isdir(out_path):
+            pass
+        else:
+            raise
 
 def split(sequence, size):
 ##########################    
@@ -202,7 +196,7 @@ def main():
 
     now = datetime.datetime.now()
     #t = now.strftime("test_%Y_%m_%d_%H_%M_%S_DATA_ReReco_")
-    t = "test_CRUZET17_DATA_ReReco_"
+    t = "test_CRUZET18_DATA_ReReco_"
     t+=opts.taskname
     
     USER = os.environ.get('USER')
