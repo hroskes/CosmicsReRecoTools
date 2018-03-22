@@ -1564,3 +1564,6 @@ CosmicsSrc = [
 "/store/data/Commissioning2018/Cosmics/RAW/v1/000/312/105/00000/6E376B80-CC2B-E811-9CAC-FA163EF0F049.root",
 #total events in these files: 84459417.0
 ]
+
+import cosmics_part1_cff
+for _ in cosmics_part1_cff.CosmicsSrc: CosmicsSrc.remove(_)
